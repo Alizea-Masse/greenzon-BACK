@@ -31,6 +31,10 @@ const userSchema = mongoose.Schema({
     image: String,
   });
 
+  //model
+
+  const userModel = mongoose.model('user', userSchema);
+
 //api
 app.get("/", (req, res, next) => {
   res.send("server is up and running");
