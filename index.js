@@ -18,7 +18,18 @@ mongoose
   .then(() => console.log("Connected to DB"))
   .catch((err) => console.error(err));
 
-
+//schema
+const userSchema = mongoose.Schema({
+    lastName: String,
+    firstName: String,
+    email: {
+      type: String,
+      unique: true,
+    },
+    password: string,
+    confirmPassword: String,
+    image: String,
+  });
 
 //api
 app.get("/", (req, res, next) => {
