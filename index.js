@@ -26,7 +26,7 @@ const userSchema = mongoose.Schema({
       type: String,
       unique: true,
     },
-    password: string,
+    password: String,
     confirmPassword: String,
     image: String,
   });
