@@ -69,9 +69,9 @@ app.post("/signup", async (req, res) => {
         image: user.image,
       };
       console.log(dataSend);
-      res.send({ message: "Vous êtes connecté·e !", alert: true, data: dataSend });
+      res.send({ message: "vous êtes connecté·e !", alert: true, data: dataSend });
     }else {
-      res.send({ message: "Ce compte n'existe pas", alert: false });
+      res.send({ message: "Désolée, ce compte n'existe pas", alert: false });
     }
   });
 
