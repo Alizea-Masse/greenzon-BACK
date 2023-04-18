@@ -18,6 +18,15 @@ mongoose
   .then(() => console.log("Connected to DB"))
   .catch((err) => console.error(err));
 
+  // api
+  // app.get("/", (req, res, next) => {
+  //   res.send("server is up and running");
+  // });
+
+
+
+   //User section
+
 //schema
 const userSchema = mongoose.Schema({
   lastName: String,
@@ -35,14 +44,13 @@ const userSchema = mongoose.Schema({
 
 const userModel = mongoose.model("user", userSchema);
 
-//api
-app.get("/", (req, res, next) => {
-  res.send("server is up and running");
-});
 
 app.post("/signup", async (req, res) => {
   const { email } = req.body;
 
+
+
+ 
   const user = await userModel.findOne({
     email: email,
   });
@@ -55,7 +63,8 @@ app.post("/signup", async (req, res) => {
     res.send({ message: "Inscrit·e avec succès !", alert: true });
   }
 }),
-  //api login
+  
+//Login
 
   app.post("/login", async (req, res) => {
     const { email } = req.body;
@@ -68,13 +77,51 @@ app.post("/signup", async (req, res) => {
         email: user.email,
         image: user.image,
       };
-      console.log(dataSend);
-      res.send({ message: "vous êtes connecté·e !", alert: true, data: dataSend });
+      //console.log(dataSend);
+      res.send({ message: `Vous êtes connecté·e ${user.firstName} !`, alert: true, data: dataSend });
     }else {
       res.send({ message: "Désolée, ce compte n'existe pas", alert: false });
     }
   });
 
+
+  //Product Section
+
+  //schema
+const productSchema = mongoose.Schema({
+  nom: String,
+  categorie: String,
+  image: String,
+  prix: String,
+  description: String,
+});
+
+//model
+
+const productModel = mongoose.model("product", productSchema);
+
+// Save product in DB
+
+app.post("/uploadProduct", async (req, res) => {
+  const data = await productModel(req.body)
+  const dataSave = await data.save()
+  res.send({message:"Article ajouté avec succès !"})
+ 
+
+})
+
+// get products
+
+app.get("/product", async (req,res)=>{
+  
+  const data = await productModel.find({})
+  res.send(JSON.stringify(data))
+})
+
+
+
+
+  // Server runing
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
